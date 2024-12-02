@@ -6,7 +6,7 @@ const Router = require('./Routers/index'); // Correctly imported Router
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-const MONGODB_URI =mongodb://localhost:27017/Prathamesh;
+const MONGODB_URI =process.env.MONGODB_URI || mongodb://localhost:27017/Prathamesh;
 // Middleware
 app.use(express.json());
 app.use(bodyParser.json());
