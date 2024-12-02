@@ -11,20 +11,20 @@ class LowestPrices extends React.Component {
             <div className="lowestPriceWhay">
                 <div className="lowestPriceItem">
                     <div className="lowestPrice_icon">
-                        <img src="https://images.meesho.com/images/pow/freeDelivery.svg" />
+                        <img src="https://images.meesho.com/images/pow/freeDelivery.svg" alt="" />
                     </div>
                     <p>Free Delivery</p>
                 </div>
 
                 <div className="lowestPriceItem">
                     <div className="lowestPrice_icon">
-                        <img src="https://images.meesho.com/images/pow/cod.svg" />
+                        <img src="https://images.meesho.com/images/pow/cod.svg" alt="" />
                     </div>
                     <p>Cash on Delivery</p>
                 </div>
                 <div className="lowestPriceItem">
                     <div className="lowestPrice_icon">
-                        <img src="https://images.meesho.com/images/pow/easyReturns.svg" />
+                        <img src="https://images.meesho.com/images/pow/easyReturns.svg" alt="" />
                     </div>
                     <p>Easy Returns</p>
                 </div>
@@ -32,14 +32,14 @@ class LowestPrices extends React.Component {
 
             <button className="downloadApp_contianer">
                 <div className="downloadAppIcon">
-                    <img src="https://images.meesho.com/images/pow/playstoreSmallIcon.webp" />
+                    <img src="https://images.meesho.com/images/pow/playstoreSmallIcon.webp" alt="" />
                 </div>
                 <p>Download the Meesho App</p>
             </button>
 
         </div>
         <div className="lowestPrice_image">
-            <img src={Topic} />
+            <img src={Topic} alt="" />
         </div>
     </div>
   );
