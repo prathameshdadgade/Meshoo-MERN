@@ -81,10 +81,12 @@ class TopCategoriesBanner extends Component {
               <h2>Become a Seller and</h2>
               <h1>Start your Online Business with Zero Investment</h1>
               <div className="becomerSeller_appDownload_container">
-                <a href="#" className="becomerSeller_appDownload">
+{/*                 <a href="#" className="becomerSeller_appDownload"> */}
+<a href="/seller" className="becomeSeller_appDownload">Become a Seller</a>
+
                   <img src={GooglePay} alt="Google Play" />
                 </a>
-                <a href="#" className="becomerSeller_appDownload">
+{/*                 <a href="#" className="becomerSeller_appDownload"> */}
                   <img src={Appstore} alt="App Store" />
                 </a>
               </div>
@@ -112,7 +114,9 @@ class TopCategoriesBanner extends Component {
                   <p>Sell all over India</p>
                 </div>
               </div>
-              <a href="#" className="signup_btn_now">Sign up now</a>
+{/*               <a href="#" className="signup_btn_now">Sign up now</a> */}
+              <a href="/signup" className="signup_btn_now">Sign up now</a>
+
             </div>
           </div>
         </div>
