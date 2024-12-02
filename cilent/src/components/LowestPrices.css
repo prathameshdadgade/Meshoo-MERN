@@ -1,0 +1,65 @@
+
+
+/**********************lowest price*************************/
+.lowestpriceContainer {
+  display: flex;
+  margin: 50px auto;
+  max-width: 1100px;
+  /* background-color: red; */
+}
+
+.lowestpriceContainer h1 {
+  font-size: 40px;
+  margin: 0;
+  color: rgb(36, 31, 31);
+}
+
+.lowestPrice_text {
+  width: 50%;
+  padding: 25px 0 0 25px;
+}
+
+.lowestPrice_image {
+  width: 50%;
+}
+
+.lowestPrice_icon {
+  width: 30px;
+  border-radius: 40px;
+  background-color: rgb(238, 133, 187);
+}
+
+.lowestPriceWhay {
+  display: flex;
+  height: 50px;
+  margin: 20px 0;
+}
+
+.lowestPriceItem {
+  padding: 0 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-right: 2px solid #ccc;
+}
+
+.lowestPriceItem p {
+  padding-left: 10px;
+}
+
+.downloadApp_contianer {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  height: 50px;
+  background-color: var(--hoverTextColor);
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.downloadApp_contianer p {
+  padding: 0px 20px;
+}

@@ -1,0 +1,419 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --hoverTextColor: rgb(244, 51, 151);
+  --textColor: rgb(87, 85, 85);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  color: var(--textColor);
+}
+
+img {
+  width: 100%;
+}
+
+.header {
+  height: 72px;
+  outline: 1px solid #ccc;
+  padding: 0px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerLeft,
+.headerRight {
+  display: flex;
+  align-items: center;
+}
+
+.logoContainer {
+  width: 200px;
+}
+
+.searchInputContainer {
+  width: 400px;
+  height: 45px;
+  outline: 1px solid rgb(126, 126, 126);
+  display: flex;
+  margin-left: 25px;
+  border-radius: 3px;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+}
+
+.searchIcon {
+  width: 20px;
+  margin: 6px;
+}
+
+form {
+  width: 100%;
+}
+
+.inputSearch {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+#closeSearch {
+  display: none;
+}
+
+.searchRecentModal {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: 45px;
+  background-color: white;
+  height: 400px;
+  width: 100%;
+  display: none;
+  padding: 15px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+}
+
+.searchInputContainer:focus-within .searchRecentModal {
+  display: block;
+  background-color: white;
+}
+
+.recentIcon {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.recentItem {
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.mobileIcon {
+  width: 15px;
+  margin: 5px;
+}
+
+.downloadContainer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-right: 20px;
+  position: relative;
+}
+
+.downloadContainer:hover {
+  color: var(--hoverTextColor);
+  cursor: pointer;
+}
+
+.downloadBtn {
+  display: block;
+  width: 180px;
+  margin-top: 5px;
+}
+
+.downloadHoverBtnContainer {
+  position: absolute;
+  bottom: 0;
+  top: 40px;
+  /* box-shadow: 0px 0px 5px rgba(0,0,0,0.3); */
+  width: 200px;
+  /* background-color: red; */
+  display: none;
+  height: 200px;
+  padding: 10px;
+  margin-left: -30px;
+  color: var(--textColor);
+  background: white;
+  z-index: 2;
+}
+
+.downloadContainer:hover .downloadHoverBtnContainer,
+.downloadContainer:focus .downloadHoverBtnContainer {
+  display: block;
+}
+
+.downloadContainer p {
+  margin: 0;
+  padding: 0;
+  font-size: 17px;
+}
+
+.profileAndCart {
+  display: flex;
+  align-items: center;
+}
+
+.profileAndCart:hover,
+.profileAndCart:focus {
+  color: var(--hoverTextColor);
+}
+
+.profileIcon,
+.CartIcon {
+  width: 20px;
+}
+
+.profileAndCart p {
+  margin: 0;
+  padding: 0;
+}
+
+.profileContainer,
+.CartContainer {
+  padding: 0px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.becomeSupplierContainer {
+  padding: 0px 30px;
+  border-left: 1.5px solid #ccc;
+  border-right: 1.5px solid #ccc;
+  font-size: 17px;
+}
+
+
+/* Media Queries for Responsiveness */
+
+@media only screen and (max-width: 1200px) {
+  .header {
+      padding: 0 40px;
+  }
+
+  .logoContainer {
+      width: 150px;
+  }
+
+  .searchInputContainer {
+      width: 300px;
+  }
+
+  .becomeSupplierContainer {
+      padding: 0 20px;
+      font-size: 15px;
+  }
+
+  nav ul {
+      padding: 0px 40px;
+  }
+
+  .lowestpriceContainer {
+      max-width: 900px;
+  }
+
+  .topCategoriesFrom,
+  .sellerContainer {
+      width: 900px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+      flex-direction: column;
+      height: auto;
+      padding: 10px;
+  }
+
+  .headerLeft,
+  .headerRight {
+      justify-content: center;
+      margin: 10px 0;
+  }
+
+  .searchInputContainer {
+      width: 100%;
+      margin: 10px 0;
+  }
+
+  nav ul {
+      flex-direction: column;
+      align-items: flex-start;
+      height: auto;
+      padding: 10px 20px;
+  }
+
+  nav ul li {
+      width: 100%;
+  }
+
+  .lowestpriceContainer,
+  .topCategoriesFrom,
+  .sellerContainer {
+      max-width: 100%;
+      padding: 0 20px;
+  }
+
+  .lowestPrice_text,
+  .lowestPrice_image {
+      width: 100%;
+  }
+
+  .topCategoreisImage {
+      flex-direction: column;
+  }
+
+  .essentialContaienr,
+  .newContaienr {
+      flex-direction: column;
+      height: auto;
+      padding: 20px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .logoContainer {
+      width: 100px;
+  }
+
+  .searchInputContainer {
+      width: 100%;
+      padding: 5px;
+  }
+
+  .downloadContainer,
+  .profileAndCart {
+      flex-direction: column;
+  }
+
+  .becomeSupplierContainer {
+      font-size: 13px;
+      padding: 0 10px;
+  }
+
+  nav ul {
+      padding: 10px;
+  }
+
+  .lowestpriceContainer h1,
+  .topCategoriesHeading h1 {
+      font-size: 24px;
+  }
+
+  .lowestPrice_icon,
+  .sellerIcon {
+      width: 80px;
+  }
+
+  .downloadApp_contianer {
+      font-size: 16px;
+  }
+
+  .essential_item,
+  .newContaienr img {
+      max-width: 120px;
+  }
+}
+
+
+
+
+/* Profile Dropdown Container */
+.profileContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Dropdown Menu */
+.profileDropdown {
+  position: absolute;
+  top: 60px; /* Adjust based on header height */
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  width: 200px;
+  z-index: 10;
+  display: none; /* Initially hidden */
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+/* Show Dropdown on Hover or Click */
+.profileContainer:hover .profileDropdown,
+.profileContainer:focus .profileDropdown {
+  display: flex;
+}
+
+/* Dropdown Links */
+.profileDropdown a,
+.profileDropdown button {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 14px;
+  color: var(--textColor);
+  background-color: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.profileDropdown a:hover,
+.profileDropdown button:hover {
+  background-color: var(--hoverTextColor);
+  color: white;
+}
+
+/* Dropdown Buttons */
+.profileDropdown button {
+  width: 100%;
+}
+
+/* Divider for Dropdown */
+.profileDropdown hr {
+  margin: 5px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+/* Welcome Text (for Logged-In Users) */
+.profileContainer p {
+  font-size: 14px;
+  margin: 0;
+  color: var(--textColor);
+}
+
+
+/* Logout Button Styles (Pink Color) */
+.profileContainer button.logout {
+  background-color: rgb(244, 51, 151); /* Pink Color */
+  color: white;
+  padding: 4px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profileContainer button.logout:hover {
+  background-color: rgb(211, 28, 128); /* Darker Pink on Hover */
+}
+
+/* Link Styles for Sign Up and Login (Pink Text Color) */
+
+.profileContainer a:hover p {
+  color: rgb(211, 28, 128); /* Darker Pink on Hover */
+}
+
+
+
+
