@@ -82,11 +82,12 @@ class TopCategoriesBanner extends Component {
               <h1>Start your Online Business with Zero Investment</h1>
               <div className="becomerSeller_appDownload_container">
 {/*                 <a href="#" className="becomerSeller_appDownload"> */}
-<a href="/seller" className="becomeSeller_appDownload">Become a Seller</a>
+<a href="/seller" className="becomeSeller_appDownload">Become a Seller
 
                   <img src={GooglePay} alt="Google Play" />
                 </a>
 {/*                 <a href="#" className="becomerSeller_appDownload"> */}
+                   <a href="/seller" className="becomeSeller_appDownload">Become a Seller
                   <img src={Appstore} alt="App Store" />
                 </a>
               </div>
