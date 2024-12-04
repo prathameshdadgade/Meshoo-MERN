@@ -19,7 +19,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:5500/api/user/login', formData)
+      .post('https://meshoo-mern.onrender.com/api/user/login', formData)
       .then((res) => {
         const { user } = res.data;
         localStorage.setItem('isLoggedIn', 'true'); // Set login session
