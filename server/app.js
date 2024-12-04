@@ -7,8 +7,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 // const MONGODB_URI =process.env.MONGODB_URI || mongodb://localhost:27017/Prathamesh;
-const MONGODB_URI =process.env.MONGODB_URI || mongodb+srv://prathameshdagade:prathameshdagade@cluster0.jdpbd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-// Middleware
+const MONGODB_URI =process.env.MONGODB_URI || "mongodb+srv://prathameshdagade:prathameshdagade@cluster0.jdpbd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
