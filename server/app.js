@@ -29,3 +29,16 @@ const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+const cors = require('cors');
+const app = express();
+
+// Enable CORS for your frontend domain
+const corsOptions = {
+  origin: 'https://meshho.netlify.app', // Allow your Netlify domain
+  methods: 'GET,POST', // Allowed HTTP methods
+  allowedHeaders: 'Content-Type,Authorization', // Allowed headers
+};
+
+app.use(cors(corsOptions));
+
