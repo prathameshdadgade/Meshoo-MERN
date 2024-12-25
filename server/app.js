@@ -8,7 +8,7 @@ const cors = require('cors');
 const app = express();
 
 // MongoDB URI (ensure your MongoDB URI is correct in .env file or replace it directly)
-const MONGODB_URI = process.env.MONGODB_URI ||"mongodb+srv://prathameshdagade:Prash123@cluster0.mongodb.net/Prathamesh?retryWrites=true&w=majority";
+const MONGODB_URI = process.env.MONGODB_URI ||"mongodb+srv://prathameshdagade:Prash123@cluster0.jdpbd.mongodb.net/Prathamesh?retryWrites=true&w=majority&appName=Cluster0";
 
 app.use(express.json());
 app.use(bodyParser.json());
