@@ -19,7 +19,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('https://meshoo-mern.onrender.com/api/user/signup', formData)
+      .post('https://meshoo-mern-1.onrender.com/api/user/signup', formData)
       .then((res) => {
         setMessage(res.data.message);
         setFormData({
