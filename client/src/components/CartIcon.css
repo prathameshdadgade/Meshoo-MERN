@@ -1,0 +1,169 @@
+/* General Styles */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --hoverTextColor: rgb(244, 51, 151);
+  --textColor: rgb(87, 85, 85);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  color: var(--textColor);
+}
+
+/* Navigation Styles */
+nav {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  height: 54px;
+}
+
+nav ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 80px;
+  height: 100%;
+  margin: 0;
+  position: relative;
+}
+
+nav ul li {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+nav ul li:hover {
+  color: var(--hoverTextColor);
+  border-bottom: 4px solid var(--hoverTextColor);
+}
+
+/* Cart Icon Container */
+.CartIconContainer {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: var(--textColor);
+}
+
+.CartIcon img {
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+}
+
+.CartIconContainer p {
+  margin: 0;
+}
+
+/* Cart Popup Styles */
+.CartPopup {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  z-index: 100;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.CartItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.CartItemDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.CartItemActions {
+  display: flex;
+  align-items: center;
+}
+
+/* Add Remove and Pay Now Button Styles (Pink Color) */
+.CartItem button.remove,
+.PayNowBtn {
+  background-color: rgb(244, 51, 151); /* Pink Color */
+  color: white;
+  padding: 4px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Add margin-right to the Remove button to space it from the Pay Now button */
+.CartItem button.remove {
+  margin-right: 10px;
+}
+
+.CartItem button.remove:hover,
+.PayNowBtn:hover {
+  background-color: rgb(211, 28, 128); /* Darker Pink on Hover */
+}
+
+/* Adjust the layout for Pay Now button to make it look more attractive */
+.PayNowBtn {
+  width: 100%; /* Make the button span the width of the popup */
+  margin-top: 10px; /* Add some spacing from the total price */
+  padding: 10px; /* Increase padding to make it more prominent */
+  font-size: 16px; /* Increase font size for better visibility */
+}
+
+/* Cart Total Styles */
+.CartTotal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Media Queries for Responsiveness */
+@media only screen and (max-width: 768px) {
+  .CartIconContainer {
+    font-size: 14px;
+  }
+
+  .CartPopup {
+    width: 220px;
+    max-height: 300px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .CartIconContainer {
+    font-size: 12px;
+  }
+
+  .CartPopup {
+    width: 200px;
+    max-height: 280px;
+  }
+
+  .PayNowBtn {
+    font-size: 14px;
+  }
+}
