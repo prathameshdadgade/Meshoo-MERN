@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=20.0.0" // Ensures Netlify uses the correct Node.js version
+    "node": ">=20.0.0" 
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
