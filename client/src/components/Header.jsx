@@ -4,11 +4,12 @@ import Messho from '../assets/img/Meesho Logo - PNG Logo Vector Brand Downloads 
 import Search from '../assets/img/search.png';
 import Mobile from '../assets/img/mobile.png';
 import User from '../assets/img/user.png';
-// import Card from '../assets/img/cart.png';
-import axios from 'axios';
+// Remove unused imports
+// import axios from 'axios';
+// import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import CartIcon from './CartIcon';
+import CartIcon from './CartIcon'; // If you need to use CartIcon, keep this import
+
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +28,7 @@ class Header extends Component {
         this.setState({ user: JSON.parse(storedUser) });
       }
     }
-    // Handle input change and show the search results
+
     handleInputChange = (event) => {
         const inputValue = event.target.value;
         this.setState({
@@ -42,7 +43,6 @@ class Header extends Component {
         }
     };
 
-   
     handleFormSubmit = (event) => {
         event.preventDefault();
         const { inputValue, recentInputs } = this.state;
@@ -65,19 +65,19 @@ class Header extends Component {
         });
     };
 
-    // Logout functionality
     handleLogout = () => {
-      localStorage.removeItem('isLoggedIn'); // Remove login session
-      localStorage.removeItem('user'); // Remove user data from localStorage
-      this.setState({ user: null }); // Clear user data from state
-      window.location.reload(); // Refresh the page to reflect logout state
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('user');
+      this.setState({ user: null });
+      window.location.reload();
     };
 
     render() {
         const { inputValue, recentInputs, isSearchVisible, searchResults, user } = this.state;
-       // const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-       const { cartCount } = this.props;
-       return (
+        // If you're not using cartCount, remove this from the render method
+        // const { cartCount } = this.props;
+
+        return (
             <header className="header">
                 <div className="headerLeft">
                     <div className="logoContainer">
@@ -156,22 +156,18 @@ class Header extends Component {
                                         <p>Sign Up</p>
                                     </Link>
                                     <Link to="/login">
-                                        <p>Login</p>
+                                        <p>Log In</p>
                                     </Link>
                                 </>
                             )}
                         </div>
-                        <div className="CartContainer">
-                           <CartIcon /> {/* Display Cart Icon with Count */}
-                         </div>
+                        {/* If using CartIcon, include it here */}
+                        <CartIcon />
                     </div>
                 </div>
             </header>
         );
     }
 }
-// const mapStateToProps = (state) => ({
-//     cartCount: state.cart.cart.length, // Get the count of items in the cart
-// });
 
 export default Header;
