@@ -4,7 +4,7 @@ import Messho from '../assets/img/Meesho Logo - PNG Logo Vector Brand Downloads 
 import Search from '../assets/img/search.png';
 import Mobile from '../assets/img/mobile.png';
 import User from '../assets/img/user.png';
-import Card from '../assets/img/cart.png';
+// import Card from '../assets/img/cart.png';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -170,8 +170,8 @@ class Header extends Component {
         );
     }
 }
-const mapStateToProps = (state) => ({
-    cartCount: state.cart.cart.length, // Get the count of items in the cart
-});
+// const mapStateToProps = (state) => ({
+//     cartCount: state.cart.cart.length, // Get the count of items in the cart
+// });
 
-export default connect(mapStateToProps)(Header);
+export default Header;
