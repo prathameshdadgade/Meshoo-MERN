@@ -7,8 +7,8 @@ import User from '../assets/img/user.png';
 import Card from '../assets/img/cart.png';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
-
+import { connect } from 'react-redux';
+import CartIcon from './CartIcon';
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -87,7 +87,8 @@ class Header extends Component {
     render() {
         const { inputValue, recentInputs, isSearchVisible, searchResults, user } = this.state;
        // const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        return (
+       const { cartCount } = this.props;
+       return (
             <header className="header">
                 <div className="headerLeft">
                     <div className="logoContainer">
@@ -172,16 +173,16 @@ class Header extends Component {
                             )}
                         </div>
                         <div className="CartContainer">
-                            <div className="CartIcon">
-                                <img src={Card} alt="Cart Icon" />
-                            </div>
-                            <p>Cart</p>
-                        </div>
+                           <CartIcon /> {/* Display Cart Icon with Count */}
+                         </div>
                     </div>
                 </div>
             </header>
         );
     }
 }
+const mapStateToProps = (state) => ({
+    cartCount: state.cart.cart.length, // Get the count of items in the cart
+});
 
-export default Header;
+export default connect(mapStateToProps)(Header);
