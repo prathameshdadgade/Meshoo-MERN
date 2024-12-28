@@ -42,18 +42,7 @@ class Header extends Component {
         }
     };
 
-    // Fetch search results from the server using Axios
-      // Fetch search results from the server using Axios
-      fetchSearchResults = (query) => {
-        axios
-            .get('http://localhost:5500/api/search', { params: { q: query } })  // Make sure the endpoint matches your server setup
-            .then((res) => {
-                this.setState({ searchResults: res.data || [] });
-            })
-            .catch((err) => {
-                console.error('Error fetching search results:', err);
-            });
-    };
+   
     handleFormSubmit = (event) => {
         event.preventDefault();
         const { inputValue, recentInputs } = this.state;
