@@ -238,3 +238,35 @@ body {
       max-width: 120px;
   }
 }
+
+/* Add to Cart Button Styles (Pink Color) */
+.cartButton.add {
+  background-color: rgb(244, 51, 151); /* Pink Color */
+  color: white;
+  padding: 4px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cartButton.add:hover {
+  background-color: rgb(211, 28, 128); /* Darker Pink on Hover */
+}
+
+/* Remove from Cart Button Styles (Pink Color) */
+.cartButton.remove {
+  background-color: rgb(244, 51, 151); /* Pink Color */
+  color: white;
+  padding: 4px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cartButton.remove:hover {
+  background-color: rgb(211, 28, 128); /* Darker Pink on Hover */
+}
