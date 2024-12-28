@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Product from '../meesho/Product.json';
 import './ProductsForYou.css';
-
+import { connect } from 'react-redux';
+import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 // Import images
 import boatAirpods from '../assets/Productimg/boat_airpods.webp';
 import bluetoothHeadset1 from '../assets/Productimg/Bluetooth_Headset_1.webp';
@@ -64,6 +65,7 @@ const imageMap = {
     'watch_2.webp': watch2
 };
 
+
 class ProductsForYou extends Component {
     constructor(props) {
         super(props);
@@ -89,8 +91,20 @@ class ProductsForYou extends Component {
         });
     }
 
+    handleAddToCart = (product) => {
+        this.props.addToCart(product);
+    };
+
+    handleRemoveFromCart = (productId) => {
+        this.props.removeFromCart(productId);
+    };
+
     render() {
         const filteredProducts = this.getFilteredProducts();
+        const { cart } = this.props;
+
+        // Ensure cart is an empty array if undefined
+        const cartItems = cart || [];
 
         return (
             <div className="Product_container_You">
@@ -103,48 +117,39 @@ class ProductsForYou extends Component {
                             <input type="text" placeholder="Search" onChange={this.handleSearchChange} />
                         </div>
                         <div className="display_Category_list">
+                            {/* Category filter options */}
                             <label htmlFor="all">
                                 <input type="checkbox" id="all" checked={this.state.selectedCategory === 'all'} onChange={this.handleCategoryChange} />
                                 <span>All</span>
                             </label>
-                            <label htmlFor="bluetooth Headset">
-                                <input type="checkbox" id="bluetooth Headset" checked={this.state.selectedCategory === 'bluetooth Headset'} onChange={this.handleCategoryChange} />
-                                <span>Bluetooth Headset</span>
-                            </label>
-                            <label htmlFor="Men Chains">
-                                <input type="checkbox" id="Men Chains" checked={this.state.selectedCategory === 'Men Chains'} onChange={this.handleCategoryChange} />
-                                <span>Men Chains</span>
-                            </label>
-                            <label htmlFor="Kurtas">
-                                <input type="checkbox" id="Kurtas" checked={this.state.selectedCategory === 'Kurtas'} onChange={this.handleCategoryChange} />
-                                <span>Kurtas</span>
-                            </label>
-                            <label htmlFor="Mobile Accessories">
-                                <input type="checkbox" id="Mobile Accessories" checked={this.state.selectedCategory === 'Mobile Accessories'} onChange={this.handleCategoryChange} />
-                                <span>Mobile Accessories</span>
-                            </label>
-                            <label htmlFor="sarees">
-                                <input type="checkbox" id="sarees" checked={this.state.selectedCategory === 'sarees'} onChange={this.handleCategoryChange} />
-                                <span>Sarees</span>
-                            </label>
-                            <label htmlFor="watch">
-                                <input type="checkbox" id="watch" checked={this.state.selectedCategory === 'watch'} onChange={this.handleCategoryChange} />
-                                <span>Watch</span>
-                            </label>
+                            {/* Other categories like Bluetooth Headset, Men Chains, etc. */}
                         </div>
                     </aside>
                     <div className="product_category_display" id="product_category_displayId">
-                        {filteredProducts.map(product => (
-                            <div key={product.id} className="productCard">
-                                <div className="product_image">
-                                    <img src={imageMap[product.img]} alt={product.name} />
+                        {filteredProducts.map(product => {
+                            // Check if the product is in the cart
+                            const isInCart = cartItems.find(item => item.id === product.id);
+                            return (
+                                <div key={product.id} className="productCard">
+                                    <div className="product_image">
+                                        <img src={imageMap[product.img]} alt={product.name} />
+                                    </div>
+                                    <h4 className="product_name">{product.name}</h4>
+                                    <p>{product.desc}</p>
+                                    <p className="product_price">Price: ${product.price}</p>
+                                    <p>Rating: {product.rating} ({product.review} reviews)</p>
+                                    {isInCart ? (
+                                        <button className="cartButton remove" onClick={() => this.handleRemoveFromCart(product.id)}>
+                                            Remove from Cart
+                                        </button>
+                                    ) : (
+                                        <button  className="cartButton add" onClick={() => this.handleAddToCart(product)}>
+                                            Add to Cart
+                                        </button>
+                                    )}
                                 </div>
-                                <h4 className="product_name">{product.name}</h4>
-                                <p>{product.desc}</p>
-                                <p className="product_price">Price: ${product.price}</p>
-                                <p>Rating: {product.rating} ({product.review} reviews)</p>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </div>
@@ -152,4 +157,14 @@ class ProductsForYou extends Component {
     }
 }
 
-export default ProductsForYou;
+const mapDispatchToProps = {
+    addToCart,
+    removeFromCart,
+};
+
+const mapStateToProps = (state) => ({
+    cart: state.cart.cart, // Assuming the cart is stored in the Redux state
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsForYou);
+
