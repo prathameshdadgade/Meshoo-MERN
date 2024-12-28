@@ -417,3 +417,35 @@ form {
 
 
 
+/* Cart Icon and Popup Styles */
+.CartIconContainer {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Add gap between icon and cart text */
+}
+
+.CartIcon img {
+  width: 30px;
+  height: 30px;
+}
+
+.CartIcon p {
+  margin: 0; /* Remove default margin from the paragraph */
+  font-size: 14px; /* Adjust text size if needed */
+}
+
+.CartPopup {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  z-index: 100;
+  max-height: 300px;
+  overflow-y: auto;
+}
