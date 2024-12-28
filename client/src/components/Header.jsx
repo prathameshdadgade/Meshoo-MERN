@@ -4,12 +4,8 @@ import Messho from '../assets/img/Meesho Logo - PNG Logo Vector Brand Downloads 
 import Search from '../assets/img/search.png';
 import Mobile from '../assets/img/mobile.png';
 import User from '../assets/img/user.png';
-// Remove unused imports
-// import axios from 'axios';
-// import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import CartIcon from './CartIcon'; // If you need to use CartIcon, keep this import
-
+import CartIcon from './CartIcon';
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -28,7 +24,7 @@ class Header extends Component {
         this.setState({ user: JSON.parse(storedUser) });
       }
     }
-
+    // Handle input change and show the search results
     handleInputChange = (event) => {
         const inputValue = event.target.value;
         this.setState({
@@ -43,6 +39,7 @@ class Header extends Component {
         }
     };
 
+    
     handleFormSubmit = (event) => {
         event.preventDefault();
         const { inputValue, recentInputs } = this.state;
@@ -65,19 +62,19 @@ class Header extends Component {
         });
     };
 
+    // Logout functionality
     handleLogout = () => {
-      localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('user');
-      this.setState({ user: null });
-      window.location.reload();
+      localStorage.removeItem('isLoggedIn'); // Remove login session
+      localStorage.removeItem('user'); // Remove user data from localStorage
+      this.setState({ user: null }); // Clear user data from state
+      window.location.reload(); // Refresh the page to reflect logout state
     };
 
     render() {
         const { inputValue, recentInputs, isSearchVisible, searchResults, user } = this.state;
-        // If you're not using cartCount, remove this from the render method
-        // const { cartCount } = this.props;
-
-        return (
+       // const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      
+       return (
             <header className="header">
                 <div className="headerLeft">
                     <div className="logoContainer">
@@ -156,18 +153,20 @@ class Header extends Component {
                                         <p>Sign Up</p>
                                     </Link>
                                     <Link to="/login">
-                                        <p>Log In</p>
+                                        <p>Login</p>
                                     </Link>
                                 </>
                             )}
                         </div>
-                        {/* If using CartIcon, include it here */}
-                        <CartIcon />
+                        <div className="CartContainer">
+                           <CartIcon /> {/* Display Cart Icon with Count */}
+                         </div>
                     </div>
                 </div>
             </header>
         );
     }
 }
+
 
 export default Header;
