@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 // Enable CORS for your frontend domain
 const corsOptions = {
-  origin: 'https://meshho.netlify.app', // Allow your Netlify domain
+  origin: 'https://meshoo.netlify.app', // Corrected Netlify domain
   methods: 'GET, POST', // Allowed HTTP methods
   allowedHeaders: 'Content-Type, Authorization', // Allowed headers
 };
