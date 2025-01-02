@@ -1,101 +1,176 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './Signup.css';
-import { useNavigate } from 'react-router-dom';
+import React, { Component } from 'react';
+import './Header.css';
+import Messho from '../assets/svg/meesho-logo.svg';
+import Search from '../assets/svg/search-icon.svg';
+import Mobile from '../assets/svg/mobile-icon.svg';
+import User from '../assets/svg/user-icon.svg';
+import { Link } from 'react-router-dom';
+import CartIcon from './CartIcon';
 
-const Signup = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    firstname: '',
-    lastname: ''
-  });
-  const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: '',
+      recentInputs: [],
+      isSearchVisible: false,
+      searchResults: [],
+      user: null,
+    };
+  }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === 'email' && value && !/^\S+@\S+\.\S+$/.test(value)) {
-      setMessage('Invalid email format');
-    } else if (name === 'password' && value && value.length < 6) {
-      setMessage('Password must be at least 6 characters');
-    } else {
-      setMessage('');
+  componentDidMount() {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      this.setState({ user: JSON.parse(storedUser) });
     }
+  }
 
-    setFormData({ ...formData, [name]: value });
+  handleInputChange = (event) => {
+    const inputValue = event.target.value;
+    this.setState({
+      inputValue,
+      isSearchVisible: inputValue.length > 0,
+    });
+
+    if (inputValue.length > 0) {
+      this.fetchSearchResults(inputValue);
+    } else {
+      this.setState({ searchResults: [] });
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    axios
-      .post('https://meshoo-mern-1.onrender.com/api/user/signup', formData)
-      .then((res) => {
-        setMessage('Signup successful! Redirecting to login...');
-        setFormData({
-          email: '',
-          password: '',
-          firstname: '',
-          lastname: ''
-        });
-        setTimeout(() => {
-          navigate('/login');
-        }, 2000);
-      })
-      .catch((err) => {
-        setMessage(err.response?.data?.message || 'Error signing up');
-      })
-      .finally(() => {
-        setIsLoading(false);
+  fetchSearchResults = async (query) => {
+    try {
+      const response = await axios.get(`/api/search?q=${query}`);
+      this.setState({ searchResults: response.data });
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      this.setState({ searchResults: [] });
+    }
+  };
+
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    const { inputValue, recentInputs } = this.state;
+
+    if (inputValue) {
+      this.setState({
+        recentInputs: [inputValue, ...recentInputs],
+        inputValue: '',
+        isSearchVisible: false,
+        searchResults: [],
       });
+    }
   };
 
-  return (
-    <div className="signup-container">
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="firstname"
-          placeholder="First Name"
-          value={formData.firstname}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="lastname"
-          placeholder="Last Name"
-          value={formData.lastname}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Signing up...' : 'Sign Up'}
-        </button>
-      </form>
-      {message && <p className="message">{message}</p>}
-    </div>
-  );
-};
+  clearInput = () => {
+    this.setState({
+      inputValue: '',
+      isSearchVisible: false,
+      searchResults: [],
+    });
+  };
 
-export default Signup;
+  handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('user');
+    this.setState({ user: null });
+    this.props.navigate('/login');
+  };
+
+  render() {
+    const { inputValue, recentInputs, isSearchVisible, searchResults, user } = this.state;
+
+    return (
+      <header className="header">
+        <div className="headerLeft">
+          <div className="logoContainer" onClick={() => this.props.navigate('/')}>
+            <img src={Messho} alt="Meesho Logo" />
+          </div>
+          <div className="searchInputContainer">
+            <form id="inputForm" onSubmit={this.handleFormSubmit}>
+              <input
+                type="text"
+                placeholder="Try Saree, Kurti or Search by Product Code"
+                className="inputSearch"
+                value={inputValue}
+                onChange={this.handleInputChange}
+              />
+            </form>
+            {isSearchVisible && (
+              <div className="inputCloseSearch" onClick={this.clearInput}>
+                <i className="fa-solid fa-xmark"></i>
+              </div>
+            )}
+            {isSearchVisible && searchResults.length > 0 && (
+              <div className="searchResultsModal">
+                <h3>Search Results</h3>
+                <div className="searchResultsList">
+                  {searchResults.map((result, index) => (
+                    <div className="resultItem" key={index}>
+                      <img src={result.img} alt={result.name} />
+                      <p>{result.name}</p>
+                      <p>{result.price}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {!isSearchVisible && recentInputs.length > 0 && (
+              <div className="searchRecentModal">
+                <h3>Recent Searches</h3>
+                <div className="listofRecent">
+                  {recentInputs.map((item, index) => (
+                    <div className="recentItem" key={index}>
+                      <p>{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="headerRight">
+          <div className="downloadContainer">
+            <img src={Mobile} alt="Mobile Icon" />
+            <p>Download App</p>
+          </div>
+          <div className="becomeSupplierContainer">
+            <p>Become a Supplier</p>
+          </div>
+          <div className="profileAndCart">
+            <div className="profileContainer">
+              <img src={User} alt="Profile Icon" />
+              {user ? (
+                <>
+                  <p>{user.firstname}</p>
+                  <button className="logout" onClick={this.handleLogout}>
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link to="/signup">
+                    <p>Sign Up</p>
+                  </Link>
+                  <Link to="/login">
+                    <p>Login</p>
+                  </Link>
+                </>
+              )}
+            </div>
+            <div className="CartContainer">
+              <CartIcon />
+            </div>
+          </div>
+        </div>
+      </header>
+    );
+  }
+}
+
+export default (props) => {
+  const navigate = useNavigate();
+  return <Header {...props} navigate={navigate} />;
+};
