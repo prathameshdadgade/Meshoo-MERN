@@ -20,10 +20,14 @@ app.use(bodyParser.json());
 //   allowedHeaders: 'Content-Type, Authorization', // Allowed headers
 // };
 // app.use(cors(corsOptions));
-const allowedOrigins = ['https://meshoo.netlify.app', 'https://meshho.netlify.app'];
+const allowedOrigins = [
+  'https://meshoo.netlify.app', // Deployed frontend
+  'http://localhost:3000',     // Local development frontend
+];
+
 const corsOptions = {
   origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -32,7 +36,10 @@ const corsOptions = {
   methods: 'GET, POST',
   allowedHeaders: 'Content-Type, Authorization',
 };
+
 app.use(cors(corsOptions));
+app.use(cors());
+
 
 
 // Use the main router for handling API routes
