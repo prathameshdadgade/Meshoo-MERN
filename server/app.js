@@ -23,9 +23,7 @@ app.use(bodyParser.json());
 
 const allowedOrigins = [
   'https://meshoo.netlify.app', // Your deployed frontend
-  'http://localhost:3000',     // Local development frontend
 ];
-
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
