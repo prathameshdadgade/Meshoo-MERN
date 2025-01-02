@@ -16,46 +16,24 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   axios
-  //     .post('http://localhost:5500/api/user/login', formData)
-  //     .then((res) => {
-  //       const { user } = res.data;
-  //       localStorage.setItem('isLoggedIn', 'true'); // Set login session
-  //       localStorage.setItem('user', JSON.stringify(user)); // Store user data in localStorage
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post('http://localhost:5500/api/user/login', formData)
+      .then((res) => {
+        const { user } = res.data;
+        localStorage.setItem('isLoggedIn', 'true'); // Set login session
+        localStorage.setItem('user', JSON.stringify(user)); // Store user data in localStorage
 
-  //       setMessage('Login successful!');
-  //       navigate('/'); // Redirect to the homepage
-  //       window.location.reload(); // Refresh the page to update the header
-  //     })
-  //     .catch((err) => {
-  //       setMessage(err.response?.data?.message || 'Error logging in');
-  //     });
-  // };
-const handleSubmit = (e) => {
-  e.preventDefault();
+        setMessage('Login successful!');
+        navigate('/'); // Redirect to the homepage
+        window.location.reload(); // Refresh the page to update the header
+      })
+      .catch((err) => {
+        setMessage(err.response?.data?.message || 'Error logging in');
+      });
+  };
 
-  const apiUrl =
-    process.env.NODE_ENV === 'production'
-      ? 'https://meshoo-mern-1.onrender.com/api/user/login'
-      : 'http://localhost:5500/api/user/login';
-
-  axios
-    .post(apiUrl, formData)
-    .then((res) => {
-      const { user } = res.data;
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('user', JSON.stringify(user));
-
-      setMessage('Login successful!');
-      navigate('/'); // Redirect to the homepage
-      window.location.reload(); // Refresh the page to update the header
-    })
-    .catch((err) => {
-      setMessage(err.response?.data?.message || 'Error logging in');
-    });
-};
 
 
   return (
