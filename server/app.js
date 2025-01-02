@@ -14,12 +14,26 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 // Enable CORS for your frontend domain
+// const corsOptions = {
+//   origin: 'https://meshoo.netlify.app', // Corrected Netlify domain
+//   methods: 'GET, POST', // Allowed HTTP methods
+//   allowedHeaders: 'Content-Type, Authorization', // Allowed headers
+// };
+// app.use(cors(corsOptions));
+const allowedOrigins = ['https://meshoo.netlify.app', 'https://meshho.netlify.app'];
 const corsOptions = {
-  origin: 'https://meshoo.netlify.app', // Corrected Netlify domain
-  methods: 'GET, POST', // Allowed HTTP methods
-  allowedHeaders: 'Content-Type, Authorization', // Allowed headers
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: 'GET, POST',
+  allowedHeaders: 'Content-Type, Authorization',
 };
 app.use(cors(corsOptions));
+
 
 // Use the main router for handling API routes
 app.use('/api', Router);
