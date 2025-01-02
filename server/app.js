@@ -53,7 +53,7 @@ mongoose.connect(MONGODB_URI)
   });
 
 // Start the server using the PORT from environment variable
-const PORT = process.env.PORT || 5500||5501;;
+const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
