@@ -20,8 +20,9 @@ app.use(bodyParser.json());
 //   allowedHeaders: 'Content-Type, Authorization', // Allowed headers
 // };
 // app.use(cors(corsOptions));
+
 const allowedOrigins = [
-  'https://meshoo.netlify.app', // Deployed frontend
+  'https://meshoo.netlify.app', // Your deployed frontend
   'http://localhost:3000',     // Local development frontend
 ];
 
@@ -33,12 +34,11 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: 'GET, POST',
-  allowedHeaders: 'Content-Type, Authorization',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 };
 
 app.use(cors(corsOptions));
-app.use(cors());
 
 
 
