@@ -1,172 +1,101 @@
-import React, { Component } from 'react';
-import './Header.css';
-import Messho from '../assets/img/Meesho Logo - PNG Logo Vector Brand Downloads (SVG, EPS).jpg';
-import Search from '../assets/img/search.png';
-import Mobile from '../assets/img/mobile.png';
-import User from '../assets/img/user.png';
-import { Link } from 'react-router-dom';
-import CartIcon from './CartIcon';
-class Header extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            inputValue: '',
-            recentInputs: [],
-            isSearchVisible: false,
-            searchResults: [],
-            user: null, // State to store user data
-        };
+import React, { useState } from 'react';
+import axios from 'axios';
+import './Signup.css';
+import { useNavigate } from 'react-router-dom';
+
+const Signup = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    firstname: '',
+    lastname: ''
+  });
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === 'email' && value && !/^\S+@\S+\.\S+$/.test(value)) {
+      setMessage('Invalid email format');
+    } else if (name === 'password' && value && value.length < 6) {
+      setMessage('Password must be at least 6 characters');
+    } else {
+      setMessage('');
     }
 
-    componentDidMount() {
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-        this.setState({ user: JSON.parse(storedUser) });
-      }
-    }
-    // Handle input change and show the search results
-    handleInputChange = (event) => {
-        const inputValue = event.target.value;
-        this.setState({
-            inputValue,
-            isSearchVisible: inputValue.length > 0,
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    axios
+      .post('https://meshoo-mern-1.onrender.com/api/user/signup', formData)
+      .then((res) => {
+        setMessage('Signup successful! Redirecting to login...');
+        setFormData({
+          email: '',
+          password: '',
+          firstname: '',
+          lastname: ''
         });
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
+      })
+      .catch((err) => {
+        setMessage(err.response?.data?.message || 'Error signing up');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
-        if (inputValue.length > 0) {
-            this.fetchSearchResults(inputValue);
-        } else {
-            this.setState({ searchResults: [] });
-        }
-    };
+  return (
+    <div className="signup-container">
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="firstname"
+          placeholder="First Name"
+          value={formData.firstname}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="lastname"
+          placeholder="Last Name"
+          value={formData.lastname}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Signing up...' : 'Sign Up'}
+        </button>
+      </form>
+      {message && <p className="message">{message}</p>}
+    </div>
+  );
+};
 
-    
-    handleFormSubmit = (event) => {
-        event.preventDefault();
-        const { inputValue, recentInputs } = this.state;
-
-        if (inputValue) {
-            this.setState({
-                recentInputs: [inputValue, ...recentInputs],
-                inputValue: '',
-                isSearchVisible: false,
-                searchResults: [],
-            });
-        }
-    };
-
-    clearInput = () => {
-        this.setState({
-            inputValue: '',
-            isSearchVisible: false,
-            searchResults: [],
-        });
-    };
-
-    // Logout functionality
-    handleLogout = () => {
-      localStorage.removeItem('isLoggedIn'); // Remove login session
-      localStorage.removeItem('user'); // Remove user data from localStorage
-      this.setState({ user: null }); // Clear user data from state
-      window.location.reload(); // Refresh the page to reflect logout state
-    };
-
-    render() {
-        const { inputValue, recentInputs, isSearchVisible, searchResults, user } = this.state;
-       // const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-      
-       return (
-            <header className="header">
-                <div className="headerLeft">
-                    <div className="logoContainer">
-                        <img src={Messho} alt="Meesho Logo" />
-                    </div>
-                    <div className="searchInputContainer">
-                        <div className="searchIcon">
-                            <img src={Search} alt="Search Icon" />
-                        </div>
-                        <form id="inputForm" onSubmit={this.handleFormSubmit}>
-                            <input
-                                type="text"
-                                placeholder="Try Saree, Kurti or Search by Product Code"
-                                className="inputSearch"
-                                value={inputValue}
-                                onChange={this.handleInputChange}
-                            />
-                        </form>
-                        {isSearchVisible && (
-                            <div className="inputCloseSearch">
-                                <i className="fa-solid fa-xmark" onClick={this.clearInput}></i>
-                            </div>
-                        )}
-                        {isSearchVisible && searchResults.length > 0 && (
-                            <div className="searchResultsModal">
-                                <h3>Search Results</h3>
-                                <div className="searchResultsList">
-                                    {searchResults.map((result, index) => (
-                                        <div className="resultItem" key={index}>
-                                            <img src={result.img} alt={result.name} />
-                                            <p>{result.name}</p>
-                                            <p>{result.price}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                        <div className="searchRecentModal">
-                            <h3>Recent Searches</h3>
-                            <div className="listofRecent">
-                                {recentInputs.map((item, index) => (
-                                    <div className="recentItem" key={index}>
-                                        <div className="recentIcon">
-                                            <img src="./img/recent.png" alt="Recent Icon" />
-                                        </div>
-                                        <p>{item}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="headerRight">
-                    <div className="downloadContainer">
-                        <div className="mobileIcon">
-                            <img src={Mobile} alt="Mobile Icon" />
-                        </div>
-                        <p>Download App</p>
-                    </div>
-                    <div className="becomeSupplierContainer">
-                        <p>Become a Supplier</p>
-                    </div>
-                    <div className="profileAndCart">
-                        <div className="profileContainer">
-                            <div className="profileIcon">
-                                <img src={User} alt="Profile Icon" />
-                            </div>
-                            {user ? (
-                                <>
-                                    <p>{user.firstname}</p>
-                                    <button className="logout" onClick={this.handleLogout}>Logout</button>
-                                </>
-                            ) : (
-                                <>
-                                    <Link to="/signup">
-                                        <p>Sign Up</p>
-                                    </Link>
-                                    <Link to="/login">
-                                        <p>Login</p>
-                                    </Link>
-                                </>
-                            )}
-                        </div>
-                        <div className="CartContainer">
-                           <CartIcon /> {/* Display Cart Icon with Count */}
-                         </div>
-                    </div>
-                </div>
-            </header>
-        );
-    }
-}
-
-
-export default Header;
+export default Signup;
